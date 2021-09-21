@@ -11,25 +11,50 @@ public class UserRegistration {
 	String emailPattern = username + domain;
 	String passwordPattern = "(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*]).{8,20}";
 
-	public boolean validateFirstName(String firstname) {
+	public boolean validateFirstName(String firstname) throws InvalidUserDetailException {
 
-		return Pattern.matches(firstNamePattern, firstname);
+		boolean fnameResult = Pattern.matches(firstNamePattern, firstname);
+		if (fnameResult) {
+			return true;
+		} else {
+			throw new InvalidUserDetailException("Invalid First name");
+		}
 	}
 
-	public boolean validateLastName(String lastname) {
-		return Pattern.matches(lastNamePattern, lastname);
+	public boolean validateLastName(String lastname) throws InvalidUserDetailException {
+		boolean lnameResult = Pattern.matches(lastNamePattern, lastname);
+		if (lnameResult) {
+			return true;
+		} else {
+			throw new InvalidUserDetailException("Invalid Last name");
+		}
 	}
 
-	public boolean validatePhoneNumber(String phoneNumber) {
-		return Pattern.matches(phoneNumberPattern, phoneNumber);
+	public boolean validatePhoneNumber(String phoneNumber) throws InvalidUserDetailException {
+		boolean phoneResult = Pattern.matches(phoneNumberPattern, phoneNumber);
+		if (phoneResult) {
+			return true;
+		} else {
+			throw new InvalidUserDetailException("Invalid Phone number");
+		}
 	}
 
-	public boolean validateEmail(String email) {
-		return Pattern.matches(emailPattern, email);
-
+	public boolean validateEmail(String email) throws InvalidUserDetailException {
+		boolean emailResult = Pattern.matches(emailPattern, email);
+		if (emailResult) {
+			return true;
+		} else {
+			throw new InvalidUserDetailException("Invalid Email address");
+		}
 	}
 
-	public boolean validatePassword(String password) {
-		return Pattern.matches(passwordPattern, password);
+	public boolean validatePassword(String password) throws InvalidUserDetailException {
+		boolean passwordResult = Pattern.matches(passwordPattern, password);
+		if (passwordResult) {
+			return true;
+		} else {
+			throw new InvalidUserDetailException("Invalid password");
+		}
 	}
+
 }

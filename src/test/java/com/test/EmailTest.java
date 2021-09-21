@@ -1,5 +1,7 @@
 package com.test;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.*;
 
 import org.junit.Before;
@@ -7,6 +9,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
+import com.demo.InvalidUserDetailException;
 import com.demo.UserRegistration;
 
 import junit.framework.Assert;
@@ -39,9 +42,12 @@ public class EmailTest {
 				{ "abc@gmail.com.aa.au", false } });
 	}
 	
-	@SuppressWarnings("deprecation")
 	@Test
 	public void parameterized_emailtesting_returntrueorfalse() {
-		Assert.assertEquals(expectedResult, user.validateEmail(email));
+		try {
+			assertEquals(expectedResult, user.validateEmail(email));
+		} catch (InvalidUserDetailException e) {
+			System.out.println(e);
+		}
 	}
 }
