@@ -10,10 +10,16 @@ public class UserRegistration {
 	String domain = "\\@[a-zA-Z0-9]+\\.[a-z]{2}[a-z]*([.][a-z]{2}[a-z]*)?";
 	String emailPattern = username + domain;
 	String passwordPattern = "(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*]).{8,20}";
+	
+	IValidateUserDetail validateFirstNamelambda = (firstName) -> Pattern.matches(firstNamePattern, firstName);
+	IValidateUserDetail validateLastNamelambda = (lastName) -> Pattern.matches(lastNamePattern, lastName);
+	IValidateUserDetail validatePhonelambda = (phone) -> Pattern.matches(phoneNumberPattern, phone);
+	IValidateUserDetail validateEmaillambda = (email) -> Pattern.matches(emailPattern, email);
+	IValidateUserDetail validatePasswordlambda = (password) -> Pattern.matches(passwordPattern, password);
 
 	public boolean validateFirstName(String firstname) throws InvalidUserDetailException {
 
-		boolean fnameResult = Pattern.matches(firstNamePattern, firstname);
+		boolean fnameResult = validateFirstNamelambda.validateUserDetail(firstname);
 		if (fnameResult) {
 			return true;
 		} else {
@@ -22,7 +28,7 @@ public class UserRegistration {
 	}
 
 	public boolean validateLastName(String lastname) throws InvalidUserDetailException {
-		boolean lnameResult = Pattern.matches(lastNamePattern, lastname);
+		boolean lnameResult = validateLastNamelambda.validateUserDetail(lastname);
 		if (lnameResult) {
 			return true;
 		} else {
@@ -31,7 +37,7 @@ public class UserRegistration {
 	}
 
 	public boolean validatePhoneNumber(String phoneNumber) throws InvalidUserDetailException {
-		boolean phoneResult = Pattern.matches(phoneNumberPattern, phoneNumber);
+		boolean phoneResult = validatePhonelambda.validateUserDetail(phoneNumber);
 		if (phoneResult) {
 			return true;
 		} else {
@@ -40,7 +46,7 @@ public class UserRegistration {
 	}
 
 	public boolean validateEmail(String email) throws InvalidUserDetailException {
-		boolean emailResult = Pattern.matches(emailPattern, email);
+		boolean emailResult = validateEmaillambda.validateUserDetail(email);
 		if (emailResult) {
 			return true;
 		} else {
@@ -49,7 +55,7 @@ public class UserRegistration {
 	}
 
 	public boolean validatePassword(String password) throws InvalidUserDetailException {
-		boolean passwordResult = Pattern.matches(passwordPattern, password);
+		boolean passwordResult = validatePasswordlambda.validateUserDetail(password);
 		if (passwordResult) {
 			return true;
 		} else {
